@@ -1,65 +1,48 @@
 import { Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from "@angular/common";
 import { HttpService} from './models/http.service';
 import { ApiParams } from './models/ApiParams';
+
+import { PagerComponent } from './pager/pager.component';
 
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css'],
-	providers: [HttpService]
+	providers: [HttpService, PagerComponent]
 })
 
 export class AppComponent implements OnInit {
 
 	title = 'Сервис новостей www.reddit.com';
-
 	apiParams: ApiParams;
-	
-	newsArray: any = {
-	  data: {
-		children: [
-		  {
-			data: { 
-			  author_fullname: '', 
-			  title: '',
-			  created: '',
-			  url: ''
-			}
-		  }
-		]
-	  }
-	};
+	location: Location;
+	pageComponent: PagerComponent;
 
-	constructor(private httpService: HttpService, api: ApiParams) {
+	constructor(private httpService: HttpService, private router: Router, location: Location, api: ApiParams, page: PagerComponent ) {
 		this.apiParams = api;
+		this.location = location;
+		this.pageComponent = page;
 	}
 
 	ngOnInit(){
 	}
 	
-	getNews(): void {
+	goToPageNews() {
 		this.apiParams.theme = (<HTMLInputElement>document.getElementById('themeNews')).value;
-		this.httpService.getData()
-			.subscribe(
-				result => {
-				  console.log(result);
-				  this.newsArray = result;
-				  
-				  for (let i=0; i < this.newsArray.data.children.length; i++ ) {
-					  let cr = new Date(this.newsArray.data.children[i].data.created*1000);
-					  this.newsArray.data.children[i].data.created = ('0'+cr.getDate()).slice(-2) + '-' + ('0'+(Number(cr.getMonth())+1)).slice(-2) + '-' + cr.getFullYear();
-				  }
-				  
-				  (<HTMLInputElement>document.getElementById('basicTemplate')).style.display = 'table';
-				  
-				}, error => {
-				  console.log(error);
-				  alert('Ресурс не обнаружен!');
-				}
-			);
-	  }
-
+		this.router.navigate(['page', this.apiParams.theme]);
+		(<HTMLInputElement>document.getElementById('themeNews')).value = '';
+	}
+	
+	backPage() {
+		this.location.back();
+	}
+	
+	nextPage() {
+		this.location.forward();
+	}
 }
 
 

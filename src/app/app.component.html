@@ -5,34 +5,23 @@
     </div>
     <div class="menu">
 		<div class="menuDecor" >
-        <ul>
-			<li>
-				<input id="themeNews" type="text" placeholder="ТЕМА" >
-			</li>
-            <li (click)="getNews()">
-                <a routerLink="">Показать</a>
-            </li>
-        </ul>
+			<span style="left: 10px;" class="arrow" (click)="backPage()" >&lArr;</span>
+			<ul>
+				<li>
+					<input id="themeNews" type="text" placeholder="ТЕМА" value="" >
+				</li>
+				<li>
+					<a (click)="goToPageNews()" >Показать</a>
+				</li>
+			</ul>
+			<span style="right: 10px;" class="arrow" (click)="nextPage()" >&rArr;</span>
 		</div>
     </div>
 </div>
 
-<div id="basicTemplate" class="basicTemplate" style="display: none;">
-    <div class="childBasicTemplate1" *ngFor="let dt of newsArray.data.children" >
-        <div class="childBasicTemplate2" >
-			<a href="{{dt.data.url}}" target="_blank">{{dt.data.title}}</a>
-        </div>
-        <div class="childBasicTemplate2 backgroundCell" >
-            <span class="sizeStyle" >{{dt.data.author_fullname}}</span>
-        </div>
-        <div class="childBasicTemplate2 backgroundLastCell" style= "width: 100px; text-align: center;" >
-            <span class="sizeStyle" >{{dt.data.created}}</span>
-        </div>
-    </div>
-</div>
 
 
-
+<router-outlet></router-outlet>
 
 
 

@@ -1,0 +1,13 @@
+<div id="basicTemplate" class="basicTemplate" style="display: none;">
+    <div class="childBasicTemplate1" *ngFor="let dt of newsArray.data.children" >
+        <div class="childBasicTemplate2" >
+			<a href="{{dt.data.url}}" target="_blank">{{dt.data.title}}</a>
+        </div>
+        <div class="childBasicTemplate2 backgroundCell" >
+            <span class="sizeStyle" >{{dt.data.author_fullname}}</span>
+        </div>
+        <div class="childBasicTemplate2 backgroundLastCell" style= "width: 100px; text-align: center;" >
+            <span class="sizeStyle" >{{dt.data.created}}</span>
+        </div>
+    </div>
+</div>
