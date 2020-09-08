@@ -16,7 +16,7 @@ import { PagerComponent } from './pager/pager.component';
 
 export class AppComponent implements OnInit {
 
-	title = 'Сервис новостей www.reddit.com';
+	title = 'Вывод постов www.reddit.com';
 	apiParams: ApiParams;
 	location: Location;
 	pageComponent: PagerComponent;
